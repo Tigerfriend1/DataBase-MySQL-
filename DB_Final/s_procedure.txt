@@ -1,0 +1,13 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `s_procedure`(in sno char(4))
+BEGIN
+	declare oorder char(4);
+	declare snum char(4);
+    set @snum = sno;
+    set @oorder = concat('insert into s values(?)');
+    prepare ror from @oorder;
+    execute ror using @snum;
+    deallocate prepare ror;
+    call p_procedure();
+    
+	
+END

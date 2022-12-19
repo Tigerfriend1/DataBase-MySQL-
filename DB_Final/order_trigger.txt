@@ -1,0 +1,13 @@
+CREATE DEFINER=`root`@`localhost` TRIGGER `order_AFTER_INSERT` AFTER INSERT ON `orderr` FOR EACH ROW BEGIN
+	if exists(select * from stock where stock.currentQty >= new.orderQty and stock.pno = new.pno) -- 조건3.재고량이 주문량보다 많아야함.
+		then if exists(select * from sale where sale.pno=new.pno)
+			then update sale set salesQty=salesQty+new.orderQty where sale.pno=new.pno;
+            update sale set salesDate=new.orderDate where sale.pno=new.pno; -- 판매,재고를 동시에 변경하여 값의 누락이 없게 구현함.
+            update stock set currentQty=currentQty-new.orderQty where stock.pno=new.pno; -- 판매,재고를 동시에 변경하여 값의 누락이 없게 구현함.
+		else insert into sale values(new.pno, new.orderQty, new.orderDate);
+			update stock set currentQty=currentQty-new.orderQty where stock.pno=new.pno;
+		end if;
+	else delete from orderr where new.ono; -- 주문량이 재고량 보다 많으면 주문이 안됨
+		insert into ocancel values(new.ono, new.pno, new.orderQty, new.orderDate, new.orderDate); -- 조건7.재고량보다 많은 주문은 취소처리해야함
+    end if;
+END

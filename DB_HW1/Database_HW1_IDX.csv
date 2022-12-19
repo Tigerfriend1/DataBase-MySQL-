@@ -1,0 +1,3 @@
+Table,Non_unique,Key_name,Seq_in_index,Column_name,Collation,Cardinality,Sub_part,Packed,Null,Index_type,Comment,Index_comment,Visible,Expression
+p,0,PRIMARY,1,pno,A,0,NULL,NULL,,BTREE,,,YES,NULL
+p,1,myindex,1,city,A,3,NULL,NULL,,BTREE,,,YES,NULL

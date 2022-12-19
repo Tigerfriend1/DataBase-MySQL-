@@ -1,0 +1,21 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `orderCancel_procedure`(in ono char(4), in pno char(4), in orderQty int 
+, in orderDate date, in cancelDate date)
+BEGIN
+	declare oorder char(4);
+	declare onum char(4);
+    declare pnum char(4);
+    declare oqty int;
+    declare odate date;
+    declare cdate date;
+    set @onum = ono;
+    set @pnum = pno;
+    set @oqty = orderQty;
+    set @odate = orderDate;
+    set @cdate = cancelDate;
+    set @oorder = concat('insert into ocancel values(?, ?, ?, ?, ?)');
+    prepare ror from @oorder;
+    execute ror using @onum, @pnum, @oqty, @odate, @cdate;
+    deallocate prepare ror;
+    
+	
+END

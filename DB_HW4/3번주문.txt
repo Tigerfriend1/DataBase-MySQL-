@@ -1,0 +1,14 @@
+CREATE DEFINER=`root`@`localhost` TRIGGER `order_AFTER_INSERT` AFTER INSERT ON `order` FOR EACH ROW BEGIN
+	if exists(select*from stock where new.orderQty < stock.currentQty and new.pno=stock.pno) then
+		if exists(select * from sales where new.pno=sales.pno)
+			then update sales set salesQty=salesQty+new.orderQty ;
+            update sales set salesDate=new.orderDate ;
+            update stock set currentQty=currentQty - new.orderQty ;
+        else insert into sales values(new.pno, new.orderQty, new.orderDate);
+        update stock set currentQty=currentQty - new.orderQty;
+        end if;
+	else  
+		insert into orderCancel values(new.ono, new.pno, new.orderQty, new.orderDate, new.orderDate);
+	end if;
+        
+END

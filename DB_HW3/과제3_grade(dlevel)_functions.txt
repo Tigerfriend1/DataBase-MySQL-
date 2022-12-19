@@ -1,0 +1,10 @@
+CREATE DEFINER=`root`@`localhost` FUNCTION `dlevel`(sumqty int) RETURNS varchar(10) CHARSET utf8mb3 COLLATE utf8mb3_unicode_ci
+    DETERMINISTIC
+BEGIN
+	declare dl varchar(10);
+    if sumqty < 400 then set dl = 'C';
+    elseif sumqty < 700 then set dl = 'B';
+    else set dl= 'A';
+    end if;
+	RETURN dl;
+END

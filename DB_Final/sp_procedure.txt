@@ -1,0 +1,19 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_procedure`(in sno char(4), in pno char(4), in qty int , in supplyDate date)
+BEGIN
+	declare oorder char(4);
+	declare snum char(4);
+    declare pnum char(4);
+    declare oqty int;
+    declare odate date;
+    set @onum = sno;
+    set @pnum = pno;
+    set @oqty = qty;
+    set @odate = supplyDate;
+    set @oorder = concat('insert into sp values(?, ?, ?, ?)');
+    prepare ror from @oorder;
+    execute ror using @snum, @pnum, @oqty, @odate;
+    deallocate prepare ror;
+    call order_procedure();
+    
+	
+END

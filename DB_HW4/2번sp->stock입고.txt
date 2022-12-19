@@ -1,0 +1,7 @@
+CREATE DEFINER=`root`@`localhost` TRIGGER `sp_AFTER_INSERT` AFTER INSERT ON `sp` FOR EACH ROW BEGIN
+	if	exists(select * from stock where stock.pno = new.pno )
+    then update stock set stock.currentQty = stock.currentQty + new.qty where stock.pno= new.pno ;
+    else
+    insert into stock values(new.pno, new.qty, new.supplyDate);
+    end if;
+END

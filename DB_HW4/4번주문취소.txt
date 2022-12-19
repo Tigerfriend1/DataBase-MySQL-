@@ -1,0 +1,6 @@
+CREATE DEFINER = CURRENT_USER TRIGGER `HW04_trigger`.`orderCancel_AFTER_INSERT` AFTER INSERT ON `orderCancel` FOR EACH ROW
+BEGIN
+	delete from HW04_trigger.order where ono=new.ono;
+    update sales set salesQty=salesQty - new.orderQty;
+    update stock set currentQty=currentQty + new.orderQty;
+END

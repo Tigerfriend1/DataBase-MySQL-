@@ -1,0 +1,10 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `orderprocedure`()
+BEGIN
+	select*from s;
+    select*from p;
+    select*from sp;
+    select*from HW04_trigger.order;
+    select*from orderCancel;
+    select*from sales;
+    select*from stock;
+END

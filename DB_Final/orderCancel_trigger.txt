@@ -1,0 +1,7 @@
+CREATE DEFINER=`root`@`localhost` TRIGGER `ooo_AFTER_INSERT` AFTER INSERT ON `ocancel` FOR EACH ROW BEGIN
+	
+    delete from orderr where new.ono = orderr.ono; -- 주문취소시 orderr테이블 값 삭제
+    update sale set salesQty=salesQty-new.orderQty where new.pno=sale.pno; -- 세일실적 업데이트
+    update stock set currentQty=currentQty+new.orderQty where new.pno=stock.pno; -- 재고 값 증가
+    update sale set salesDate=new.cancelDate where new.pno=sale.pno; -- 판매일자를 취소일자로 업데이트
+END

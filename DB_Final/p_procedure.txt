@@ -1,0 +1,13 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `p_procedure`(in pno varchar(45))
+BEGIN
+	declare oorder varchar(45);
+	declare pnum varchar(45);
+    set @pnum = pno;
+    set @oorder = concat('insert into p values(?)');
+    prepare ror from @oorder;
+    execute ror using @pnum;
+    deallocate prepare ror;
+    call sp_procedure();
+    
+	
+END

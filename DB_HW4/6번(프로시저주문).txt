@@ -1,0 +1,18 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `order_procedure`(in ono char(4), in pno char(4), in orderQty int , in orderDate char(4))
+BEGIN
+	declare oorder char(4);
+	declare onum char(4);
+    declare pnum char(4);
+    declare oqty int;
+    declare odate char(4);
+    set @onum = ono;
+    set @pnum = pno;
+    set @oqty = orderQty;
+    set @odate = orderDate;
+    set @oorder = concat('insert into HW04_trigger.order values(?, ?, ?, ?)');
+    prepare ror from @oorder;
+    execute ror using @onum, @pnum, @oqty, @odate;
+    deallocate prepare ror;
+    
+	
+END
