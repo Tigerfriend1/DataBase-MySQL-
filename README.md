@@ -11,7 +11,7 @@
 - HW4. trigger 구현
 - HW5. ER diagram에 대한 normal form 테이블 정의
 - HW6. foreign key를 사용하지 않고, partition과 transaction 처리
-- HW7. C++언어를 사용하여 DB 연동프로그램 제출
+- HW7. C++언어를 사용하여 DB 연동프로그램 구현
  
 
 ### 기술블로그에 정리한 내용
