@@ -12,7 +12,7 @@
 - HW5. ER diagram에 대한 normal form 테이블 정의
 - HW6. foreign key를 사용하지 않고, partition과 transaction 처리
 - HW7. C++언어를 사용하여 DB 연동프로그램 구현
- 
+- Final. stock의 개수를 파악하여, order와 orderCancel을 stored procedure와 trigger를 통해 자동화하기
 
 ### 기술블로그에 정리한 내용
 - [Database 개념](https://velog.io/@kimtg1997/DB-Database-개념)
